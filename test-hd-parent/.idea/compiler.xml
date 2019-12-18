@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="test-hd-admin" />
+        <module name="test-hd-api" />
+        <module name="test-hd-foundation" />
+        <module name="test-hd-resource" />
+        <module name="test-hd-service" />
+        <module name="test-hd-www" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

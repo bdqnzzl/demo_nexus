@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>空气质量监测信息库</title>
+    <link type="text/css" rel="styleSheet"  href="css/css.css" />
+    <script src="js/jquery-1.12.4.min.js"></script>
+</head>
+<script type="text/javascript">
+    var tabhstr="<thead><td>序号</td><td>区域</td><td>检测时间</td><td>PM10数据</td><td>PM2.5数据</td><td>监测站</td></thead>"
+    $(function () {
+        getDisData();
+        getdata();
+    })
+    function getDisData(){
+        $.ajax({
+            url:"/dislist",
+            type:"post",
+            data:{},
+            async: false,
+            success:function(data){
+                var str="";
+                for (i in eval(data)) {
+                    str +=
+                        "<option value='"+data[i].id+"' >" + data[i].name + "</option>" ;
+                }
+                var strs_old = $("#disName").html();
+                $("#disName").html(strs_old+str);
+            }
+        });
+    }
+
+    function getdata(){
+        var disName = $("#disName").val();
+        var data_str = {};
+        if(disName!=0){
+            data_str={"disName":disName};
+        }
+        $.ajax({
+            url:"/list",
+            type:"post",
+            data:data_str,
+            async: false,
+            success:function(data){
+                var str="";
+                if(data.length==0){
+                    str="<h1>抱歉！！暂无数据！</h1>";
+                    $("#data_tab").html(str);
+                }else{
+                    for (i in eval(data)) {
+                        str += "<tr>" +
+                            "<td align='center'>" + data[i].id + "</td>" +
+                            "<td align='center'>" +" <a href=\"air_update.html?id="+data[i].id+"\">"+data[i].district.name+"</a>"  + "</td>" +
+                            "<td align='center'>" + data[i].monitorTime.substring(0,10) + "</td>" +
+                            "<td align='center'>" + data[i].pm10 + "</td>" +
+                            "<td align='center'>" + data[i].pm25 + "</td>" +
+                            "<td align='center'>" + data[i].monitoringStation + "</td>" +
+                        "</tr>";
+                        $("#data_tab").html(tabhstr+str);
+                    }
+                }
+            }
+        });
+    }
+    function fn_update(id){
+        alert(id);
+    }
+    function fn_del(id){
+        alert(id);
+    }
+</script>
+<body>
+<div class="fdiv">
+    <div class="tdiv"><h1>空气质量监测信息库</h1></div>
+    <div>
+        <span>按区域查询
+            <select id="disName">
+                <option value="0">不限</option>
+            </select>
+            <input type="button" value="查找" onclick="getdata();"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="air_add.html">添加空气质量信息</a>
+        </span>
+    </div>
+    <div>
+        <table id="data_tab" >
+        </table>
+    </div>
+</div>
+</body>
+</html>

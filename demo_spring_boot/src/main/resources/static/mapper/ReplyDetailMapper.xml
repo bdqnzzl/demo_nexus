@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.demo_spring_boot.dao.ReplyDetailMapper">
+    <select id="getReplyDetailList" resultType="replyDetail">
+        select * from reply_detail where #{id}=invid limit #{limit1},#{limit2}
+    </select>
+    <delete id="delete" parameterType="int">
+		delete from reply_detail where #{id}=invid
+	</delete>
+    <select id="getReglyDetailCount" resultType="int" parameterType="int">
+        select count(1) from reply_detail where #{id}=invid
+    </select>
+    <insert id="add" parameterType="replyDetail">
+         insert into smbms_bill (invid,content,author,createdate)
+         values(#{invid},#{content},#{author},#{createdate})
+    </insert>
+</mapper>

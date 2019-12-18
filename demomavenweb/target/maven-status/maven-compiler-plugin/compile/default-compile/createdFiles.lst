@@ -1,0 +1,6 @@
+entity\User.class
+interceptor\SysInterceptor.class
+dao\UserMapper.class
+controller\UserController.class
+service\UserServiceImpl.class
+entity\Role.class

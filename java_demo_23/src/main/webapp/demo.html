@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="statics/js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="statics/js/echarts-gl.js" type="text/javascript"></script>
+</head>
+<script>
+    function fn1(obj) {
+        $(obj.parentElement).find(".menu_son").toggle();
+    }
+    var option = {
+        title:{
+            text:'ECharts 数据统计'
+        },
+        tooltip:{},
+        legend:{
+            data:['用户来源']
+        },
+        xAxis:{
+            data:["Android","IOS","PC","Ohter"]
+        },
+        yAxis:{
+
+        },
+        series:[{
+            name:'访问量',
+            type:'line',
+            data:[500,200,360,100]
+        }]
+    };
+    //初始化echarts实例
+    var myChart = echarts-gl.init(document.getElementById('chartmain'));
+    //使用制定的配置项和数据显示图表
+    myChart.setOption(option);
+</script>
+<body>
+<div>
+    <a href="#" onclick="fn1(this);">App管理</a><br/>
+    <span class="menu_son" style="display: none;">
+           app审核<br/>
+            广告推广<br/>
+    </span>
+</div>
+<div>
+    <a href="#" onclick="fn1(this);">App管理</a><br/>
+    <span class="menu_son" style="display: none;">
+           app审核<br/>
+            广告推广<br/>
+    </span>
+</div>
+<div>
+    <a href="#" onclick="fn1(this);">App管理</a><br/>
+    <span class="menu_son" style="display: none;">
+           app审核<br/>
+            广告推广<br/>
+    </span>
+</div>
+
+<div id="chartmain" style="width:600px; height: 400px;"></div>
+</body>
+</html>

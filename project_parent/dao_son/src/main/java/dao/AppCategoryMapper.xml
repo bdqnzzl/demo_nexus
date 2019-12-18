@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AppCategoryMapper">
+    <select id="getFirstList" resultType="entity.AppCategory">
+      select * from app_category where parentId is null;
+    </select>
+
+    <select id="getSecondList" parameterType="string" resultType="entity.AppCategory">
+      select * from app_category where parentId = #{firstId};
+    </select>
+
+    <select id="getThirdList" parameterType="string" resultType="entity.AppCategory">
+      select * from app_category where parentId = #{secondId};
+    </select>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kgc.airquality.dao.AirQualityIndexMapper">
+
+    <select id="getDataByCondition" parameterType="java.lang.String" resultMap="aqi_rm">
+            select *,dis.id as disId from air_quality_index aqi
+            left join district dis on aqi.districtId = dis.id
+            <if test="disName!=null">
+                where dis.id = #{disName}
+            </if>
+    </select>
+
+    <resultMap id="aqi_rm" type="com.kgc.airquality.pojo.AirQualityIndex" >
+        <id column="id" property="id"></id>
+        <result column="districtId" property="districtId"></result>
+        <result column="monitorTime" property="monitorTime"></result>
+        <result column="pm10" property="pm10"></result>
+        <result column="pm25" property="pm25"></result>
+        <result column="monitoringStation" property="monitoringStation"></result>
+        <result column="lastModifyTime" property="lastModifyTime"></result>
+        <association property="district" javaType="com.kgc.airquality.pojo.District">
+            <id column="disId" property="id"></id>
+            <result column="name" property="name"></result>
+        </association>
+    </resultMap>
+
+    <insert id="addData" parameterType="com.kgc.airquality.pojo.AirQualityIndex" >
+        insert into air_quality_index (districtId,monitorTime,pm10,pm25,monitoringStation,lastModifyTime)
+        values(#{districtId},#{monitorTime},#{pm10},#{pm25},#{monitoringStation},now())
+    </insert>
+
+    <update id="updataData" parameterType="com.kgc.airquality.pojo.AirQualityIndex">
+        update air_quality_index set districtId=#{districtId},monitorTime=#{monitorTime},
+          pm10=#{pm10},pm25=#{pm25},monitoringStation=#{monitoringStation},lastModifyTime=now()
+          where `id`=#{id}
+    </update>
+
+    <delete id="deleteData" parameterType="int">
+        delete from air_quality_index where `id`=#{id}
+    </delete>
+
+    <select id="getDataById" parameterType="int" resultMap="aqi_rm">
+        select *,dis.id as disId from air_quality_index  aqi
+            left join district dis on aqi.districtId = dis.id
+            where aqi.`id`=#{id}
+    </select>
+
+</mapper>
